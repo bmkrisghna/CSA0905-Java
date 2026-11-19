@@ -1,0 +1,12 @@
+Task A4.2 - what happens when a new field is added after files were saved
+
+EXPERIMENT 1 (no serialVersionUID)
+  1. cd v1 ; javac *.java ; java Save            -> creates ../hostel.ser
+  2. cd ../v2 ; javac *.java ; java Load         -> InvalidClassException: Resident; local class incompatible:
+                                                    stream classdesc serialVersionUID = ..., local class serialVersionUID = ...
+     (Java computed a different automatic ID because the class changed.)
+
+EXPERIMENT 2 (explicit serialVersionUID = 1L)
+  3. In v1/Resident.java and v2/Resident.java remove the // before "private static final long serialVersionUID = 1L;"
+  4. cd v1 ; javac *.java ; java Save            (write the file again with the ID)
+  5. cd ../v2 ; javac *.java ; java Load         -> loads OK. The new field "phone" is null (default value).

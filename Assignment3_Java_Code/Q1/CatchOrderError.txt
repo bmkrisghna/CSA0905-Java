@@ -1,0 +1,17 @@
+Student B: put this code in a file called CatchOrderError.java and try to compile it.
+The compiler refuses it, because a broader catch block placed before a narrower one makes the narrower one unreachable.
+
+public class CatchOrderError {
+    public static void main(String[] args) {
+        try {
+            Integer.parseInt("abc");
+        } catch (Exception e) {                    // broad catch first
+            System.out.println("Exception");
+        } catch (NumberFormatException e) {        // ERROR: exception NumberFormatException has already been caught
+            System.out.println("NumberFormatException");
+        }
+    }
+}
+
+Expected compiler message:
+CatchOrderError.java:7: error: exception NumberFormatException has already been caught
